@@ -6,7 +6,8 @@ exports.newComment = (req, res) => {
         BookId: req.body.BookId,
         UserId: req.body.UserId,
         Rating: req.body.Rating,
-        Review: req.body.Review
+        Review: req.body.Review,
+        Category : req.body.Category
     })
 
     Comment.save().then((new_user, err) => {
@@ -50,7 +51,7 @@ exports.fechuserComment = (req , res ) =>{
 
 exports.fechCommentBook = (req , res ) =>{
     let id = req.params.id;
-    console.log(id);
+    // console.log(id);
     comment.find({BookId : id})
     .populate('UserId' , 'username image')
     .then(fetcharr  =>{

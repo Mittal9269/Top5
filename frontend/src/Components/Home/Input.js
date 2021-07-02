@@ -60,7 +60,7 @@ export default function Input() {
         setStateindex(key);
         // console.log(key);
         isLoding(true)
-        fetch('https://www.googleapis.com/books/v1/volumes?q=' + value + "&maxResults=39", {
+        fetch('https://www.googleapis.com/books/v1/volumes?q=' + value  +  "&maxResults=39", {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -127,13 +127,17 @@ export default function Input() {
                                             <div className="row">
                                                 {data !== undefined && data.length !== 0 && (
                                                     data.map((value) => {
-                                                        return (
-                                                            <BookCard
+                                                            if(value.volumeInfo.categories !== undefined){
+                                                                return (
+                                                                    <BookCard
                                                                 id={value.id}
                                                                 productInfo={value}
-                                                            // img={img2}
-                                                            />
-                                                        )
+                                                               />
+                                                                )}
+                                                                else{
+                                                                    console.log("fuc me")
+                                                                }
+                                                            
                                                     })
                                                 )}
                                                 {

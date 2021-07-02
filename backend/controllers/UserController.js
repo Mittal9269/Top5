@@ -121,7 +121,8 @@ exports.userUpdate = (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            history: req.body.history
+            history: req.body.history,
+            AboutMe : req.body.AboutMe
         }
 
                 user.findByIdAndUpdate(req.user.id, updatedUser, {

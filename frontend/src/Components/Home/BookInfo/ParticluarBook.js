@@ -32,6 +32,8 @@ export default function ParticluarBook() {
     // const [book , setBook] = useState([]);
     const [loding, isLoding] = useState(false);
     const [comment, setComment] = useState("");
+    const [category, setCategory] = useState([]);
+    const [firstCategoy , setFirstCategory] = useState("");
     const [redirect, setRedirect] = useState(false);
     const [rate, setRate] = useState(1);
     const [data, setData] = useState({
@@ -67,12 +69,12 @@ export default function ParticluarBook() {
         isLoding(true)
         let token = sessionStorage.getItem("Token");
         if (token) {
-
-
+            let userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+            setCategory(userInfo.category);
         } else {
             setRedirect(true);
         }
-        
+        let ISBN = "";
         
         fetch('https://www.googleapis.com/books/v1/volumes/' + id, {
             method: 'GET',
@@ -83,14 +85,14 @@ export default function ParticluarBook() {
         })
             .then(res => res.json())
             .then(fetchedata => {
-                // console.log(fetchedata)
-               
+                console.log(fetchedata)
+            //    ISBN = fetchedata.volumeInfo.industryIdentifiers[0].identifier;
                 let imagefind = "https://source.unsplash.com/user/erondu/400x300";
                 if (fetchedata.volumeInfo.imageLinks !== undefined) {
                     imagefind = fetchedata.volumeInfo.imageLinks['thumbnail'];
                     imagefind = imagefind.replace("zoom=1" , "zoom=0")
                 }
-               
+                // fetch('https://api.nytimes.com/svc/books/v3/lists/current/personal-finance.json?api-key=GjmApHcKMGDHHB4IAGymihCBZx2s1cIJ', {    method: 'get',  })  .then(response => { return response.json(); })  .then(json => { console.log(json); });
                 // console.log(imagefind)
                 // if (fetchedata.accessInfo !== undefined) {
                 //     if (fetchedata.accessInfo.pdf.isAvailable) {
@@ -117,6 +119,7 @@ export default function ParticluarBook() {
                 isLoding(false)
             })
             .catch(err => console.log(err));
+            
     }
 
     useEffect(() => {
@@ -140,64 +143,56 @@ export default function ParticluarBook() {
             //     setBook(topInfo);
             // }
         }
+        fetch('https://www.googleapis.com/books/v1/volumes?q=business+subject:coding', {    method: 'get',  })  .then(response => { return response.json(); })  .then(json => { console.log(json); });
+        
 
 
     }, [])
 
     const FindAns = () => {
-        if (top5.length !== 0) {
-            if (top5.length === 5) {
-                toast.warning('you already have your top five', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+        console.log(category);
+        console.log(data.category)
+        let cate = []
+        data.category.forEach(element => {
+            cate += element.split(" / ");
+        });
+        let intersection = category.filter(x => cate.includes(x));
+        if(intersection.length > 0){
+            if (top5.length !== 0) {
+               
+                    let check = top5.includes(id);
+                    if (check) {
+                        toast.warning('You have that book in your List', {
+                            position: "top-center",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    } else {
+                        setFirstCategory(intersection[0])
+                        setIsOpen(true);
+                    }
+    
+               
             }
             else {
-                // let arr = [...user.history];
-                // let check = true;
-                // arr.forEach(element => {
-                //     if (element._id === id) {
-                //         check = false;
-                //     }
-                // });
-                console.log(top5)
-                let check = top5.includes(id);
-                if (check) {
-                    toast.warning('You have that book in your List', {
-                        position: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                } else {
-                    setIsOpen(true);
-                    // let bookInsert = [...book , id];
-                    // JSON.stringify(localStorage.setItem("topInfo" , bookInsert));
-                }
-
+                setFirstCategory(intersection[0])
+                setIsOpen(true);
             }
         }
-        else {
-            // toast.error(' Somthing went wrong please try after sometime', {
-            //     position: "top-center",
-            //     autoClose: 2000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            // });
-            setIsOpen(true);
-            // let bookInsert = [...book , id];
-            // JSON.stringify(localStorage.setItem("topInfo" , bookInsert));
+        else{
+            toast.warning('This book is not in your category!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     }
 
@@ -229,7 +224,8 @@ export default function ParticluarBook() {
                 Review: comment,
                 Rating: rate,
                 BookId: id,
-                UserId: user._id
+                UserId: user._id,
+                Category : firstCategoy
             }
             // console.log(update);
             fetch('http://localhost:8000/comment/comment', {

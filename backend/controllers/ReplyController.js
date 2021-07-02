@@ -1,8 +1,8 @@
 const reply = require("../models/Reply.js");
 
 exports.newReply = (req, res) => {
-    console.log(req.body.UserId)
-    console.log(req.body.Review)
+    // console.log(req.body.UserId)
+    // console.log(req.body.Review)
     const Reply = new reply({
         CommentId: req.body.CommentId,
         UserId: req.body.userId,
@@ -50,7 +50,7 @@ exports.fechuserReply = (req , res ) =>{
 
 exports.fechReplyBook = (req , res ) =>{
     let id = req.params.id;
-    console.log(id);
+    // console.log(id);
     reply.find({CommentId : id})
     .populate('UserId' , 'username image')
     .then(fetcharr  =>{

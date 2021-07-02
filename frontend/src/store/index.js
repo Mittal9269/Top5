@@ -1,7 +1,7 @@
 // import { data } from "jquery";
 import {createStore,applyMiddleware,combineReducers } from "redux";
 import {createSlice , configureStore} from "@reduxjs/toolkit";
-const initialState = {data : [], particluarIndex : "" , particluarRating : 1 , particluarBook : "" , commentId : "" , books : []};
+const initialState = {data : [], particluarIndex : "" , particluarRating : 1 , particluarBook : "" , commentId : "" , books : [] ,  category : []};
 
 const counterSlice =  createSlice({
     name :'counter',
@@ -24,6 +24,9 @@ const counterSlice =  createSlice({
         },
         bookscheck(state , action){
             state.books = action.payload
+        },
+        categoryCheck(state , action){
+            state.category = action.payload
         }
     }
 })

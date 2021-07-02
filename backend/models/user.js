@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema({
         type : String,
         default : "",
      },
+     AboutMe: {
+         type : String,
+         default : "Please tell people about yourself"
+     },
      gender:{type:String},
      isAdmin:{type:Boolean},
      isCustomer:{type:Boolean},

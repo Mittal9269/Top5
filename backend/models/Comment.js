@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 const crypto = require("crypto");
+const { truncateSync } = require("fs");
 
 const CommentSchema = new mongoose.Schema({
     BookId:{
@@ -24,6 +25,11 @@ const CommentSchema = new mongoose.Schema({
          trim:true,
          required:true
      },
+     Category :{
+         type : String,
+         trim:true,
+         required:true
+     }
 });
 
 

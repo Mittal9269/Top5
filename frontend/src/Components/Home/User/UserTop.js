@@ -12,20 +12,21 @@ export default function UserTop() {
         {
             photo: '',
         }
-        );
-        let [parent_data , setParent_data] = useState({
-            username: "",
-            firstName: "",
-            lastName: "",
-            email: ""  ,
-        })
-        const [data, Setdata] = useState({
-            username: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            image : ""
-        });
+    );
+    let [parent_data, setParent_data] = useState({
+        username: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+    })
+    const [data, Setdata] = useState({
+        username: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        image: "",
+        AboutMe: ""
+    });
     const formData = new FormData()
     useEffect(() => {
         let token = sessionStorage.getItem("Token");
@@ -54,7 +55,7 @@ export default function UserTop() {
         setIsOpen(true);
     }
 
-    const SubmitReview = (e) =>{
+    const SubmitReview = (e) => {
         e.preventDefault();
 
         if (!validator.isEmail(data.email)) {
@@ -67,109 +68,110 @@ export default function UserTop() {
                 draggable: true,
                 progress: undefined,
             });
-          }else if(data.firstName.length === 0 || data.lastName.length === 0){
-                toast.error('Error in firstname or lasname', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+        } else if (data.firstName.length === 0 || data.lastName.length === 0) {
+            toast.error('Error in firstname or lasname', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        else if (data.username.length === 0) {
+            toast.error('Invalid username', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            const update = {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                username: data.username,
+                email: data.email,
+                AboutMe: data.AboutMe
             }
-            else if(data.username.length === 0){
-                toast.error('Invalid username', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-            }else{
-                const update = {
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    username: data.username,
-                    email: data.email
-                }
-                // console.log(update);
-                const token = sessionStorage.getItem('Token');
-                fetch('http://localhost:8000/api/update_user', {
-                    method: 'PUT',
-                    headers: {
-                        'x-auth-token': token,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(update)
-                }).then(res => res.json())
-                    .then(res => {
-                        // console.log(res)
-                        toast.success("Updated sucessfully !",{
-                            position: "top-center",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        })
-                        sessionStorage.setItem("userInfo", JSON.stringify(res.user))
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
+            // console.log(update);
+            const token = sessionStorage.getItem('Token');
+            fetch('http://localhost:8000/api/update_user', {
+                method: 'PUT',
+                headers: {
+                    'x-auth-token': token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(update)
+            }).then(res => res.json())
+                .then(res => {
+                    // console.log(res)
+                    toast.success("Updated sucessfully !", {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
                     })
-                    .catch(err => console.log(err));
-            }
-        
-        
+                    sessionStorage.setItem("userInfo", JSON.stringify(res.user))
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                })
+                .catch(err => console.log(err));
+        }
+
+
     }
 
-    const Onclose = (e) =>{
+    const Onclose = (e) => {
         setIsOpen(false);
         Setdata(parent_data);
     }
-    const handlePhoto = (e) =>{
-        setNewUser({photo: e.target.files[0]});
-    // }
-    // const handleSubmit = (e) =>{
+    const handlePhoto = (e) => {
+        setNewUser({ photo: e.target.files[0] });
+        // }
+        // const handleSubmit = (e) =>{
         // e.preventDefault();
-        formData.append('photo',e.target.files[0]);
+        formData.append('photo', e.target.files[0]);
         // let p = e.target.files[0];
         // console.log("something is tiggred")
-        
+
         const token = sessionStorage.getItem('Token');
         // console.log(token);
-                fetch('http://localhost:8000/api/update_image', {
-                    method: 'PATCH',
-                    headers: {
-                        'x-auth-token': token,
-                        'Accept': 'application/json',
-                        // 'Content-Type': 'multipart/form-data'
-                    },
-                    // body: JSON.stringify(update)
-                    body: formData
-                }).then(res => res.json())
-                    .then(res => {
-                        // console.log(res)
-                        toast.success("Updated sucessfully !",{
-                            position: "top-center",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        })
-                        sessionStorage.setItem("userInfo", JSON.stringify(res.user))
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    })
-                    .catch(err => console.log(err));
+        fetch('http://localhost:8000/api/update_image', {
+            method: 'PATCH',
+            headers: {
+                'x-auth-token': token,
+                'Accept': 'application/json',
+                // 'Content-Type': 'multipart/form-data'
+            },
+            // body: JSON.stringify(update)
+            body: formData
+        }).then(res => res.json())
+            .then(res => {
+                // console.log(res)
+                toast.success("Updated sucessfully !", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+                sessionStorage.setItem("userInfo", JSON.stringify(res.user))
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            })
+            .catch(err => console.log(err));
     }
     return (
         <>
@@ -179,17 +181,17 @@ export default function UserTop() {
                     <div class="row">
                         <div class="col-md-4">
                             <div class="profile-img">
-                                <img src={data.image && data.image.length !== 0  ? 'http://localhost:8000/images/' + data.image : Image } alt="" />
+                                <img src={data.image && data.image.length !== 0 ? 'http://localhost:8000/images/' + data.image : Image} alt="" />
                                 {/* <form onSubmit={handleSubmit} encType='multipart/form-data'> */}
                                 <div class="file btn btn-lg btn-primary">
                                     Change Photo
-                                    <input 
-                                    type="file" 
-                                    accept=".png, .jpg, .jpeg"
-                                    onChange={handlePhoto}
-                                    name="file" />
+                                    <input
+                                        type="file"
+                                        accept=".png, .jpg, .jpeg"
+                                        onChange={handlePhoto}
+                                        name="file" />
                                 </div>
-                               
+
                                 {/* <button className="button" type="submit">Submit</button> */}
                                 {/* </form> */}
                             </div>
@@ -205,6 +207,9 @@ export default function UserTop() {
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Category</a>
                                     </li>
                                 </ul>
                             </div>
@@ -226,7 +231,7 @@ export default function UserTop() {
                                 <div>
                                     <h3>About Me</h3>
                                     <hr />
-                                    <h6>I am popi and i know how to make you popa</h6>
+                                    <h6>{data.AboutMe}</h6>
                                 </div>
                             </div>
                         </div>
@@ -266,8 +271,44 @@ export default function UserTop() {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Experience</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Expert</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Hourly Rate</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>10$/hr</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Total Projects</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>230</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>English Level</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Expert</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     {/* </form> */}
                 </div>
@@ -330,7 +371,18 @@ export default function UserTop() {
                                                 autocomplete="off" />
                                             <label for="email">Email:</label>
                                         </div>
-                            
+                                        <div class="floating-label">
+                                            <input
+                                                type="text"
+                                                placeholder="About Me"
+                                                name="AboutMe"
+                                                className="input"
+                                                value={data.AboutMe}
+                                                onChange={eventInput}
+                                                autocomplete="off" />
+                                            <label for="email">AboutMe:</label>
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button onClick={Onclose} type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
