@@ -89,9 +89,13 @@ export default function User() {
                     comment_object[element] = [];
                 });
                 fecthnow.forEach(element => {
-                    arr.push(element.BookId);
-                    console.log(element.Category);
+                    if(userInfo.category.includes(element.Category)){
+                        arr.push(element.BookId);
+                    // console.log(element.Category);
                     let temp = [...comment_object[element.Category], element]
+                    comment_object[element.Category] = temp;
+                    }
+                    
                     // setHandleSplit((repval) =>{
                     //     return {
                     //         ...repval,
@@ -99,7 +103,7 @@ export default function User() {
                     //     }
 
                     // })
-                    comment_object[element.Category] = temp;
+                    
                 });
                 // console.log(comment_object);
                 setHandleSplit(comment_object);
@@ -109,6 +113,7 @@ export default function User() {
 
             }).catch(err => console.log(err))
     }, [])
+    
 
     const popUpRemvoe = (bol, identity) => {
 
@@ -144,7 +149,8 @@ export default function User() {
                 Review: Review_particluar,
                 Rating: rate,
                 BookId: bookId,
-                UserId: data._id
+                UserId: data._id,
+                category : data.category
             }
 
             fetch('http://localhost:8000/comment/comment/' + ID, {
@@ -195,7 +201,7 @@ export default function User() {
             {Category !== undefined && Category.length !== 0 && (Category.map((value, index) => {
                 return (
                 <div>
-                    {(handleSplit[value] !== undefined &&  handleSplit[value].length!== 0) ? <h3 className="text-center">Your Top five books in {value}</h3> : null}
+                    {(handleSplit[value] !== undefined &&  handleSplit[value].length!== 0) ? <h3 className="text-center">Your Top books in {value}</h3> : null}
                     <div className="container-fluid mb-5">
                         <div className="row">
                             <div className="clo-10 mx-auto">

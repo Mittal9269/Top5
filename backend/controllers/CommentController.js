@@ -11,7 +11,7 @@ exports.newComment = (req, res) => {
     })
 
     Comment.save().then((new_user, err) => {
-        // console.log(new_user)
+        
         if (err) {
             return res.status(500).json({ error: "Server Error" })
         }

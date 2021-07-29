@@ -2,11 +2,17 @@ import { useEffect, useState } from "react"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import validator from 'validator'
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 import Image from "../../Images/defaultUser.png"
+import Multiselect from 'multiselect-react-dropdown';
+import option from "../../Login/Options";
 
 export default function UserTop() {
     const [redirect, setRedirect] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [categorySelect, setCategorySelect] = useState([]);
+    const [selectedVal , setSelectedVal] = useState([]);
     // const [photselect , setPhotoselect] = useState("");
     const [newUser, setNewUser] = useState(
         {
@@ -25,17 +31,26 @@ export default function UserTop() {
         lastName: "",
         email: "",
         image: "",
-        AboutMe: ""
+        AboutMe: "",
+        category: []
     });
     const formData = new FormData()
+    // const selectedVal = data.category;
+    let selectedValue = [];
     useEffect(() => {
         let token = sessionStorage.getItem("Token");
         if (token) {
             let array = [];
             let userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
             Setdata(userInfo)
+            // setCategorySelect(userInfo.category)
             setParent_data(userInfo)
-
+            // let selectedValue = [];
+            // if(userInfo.category !== null && userInfo.category !== undefined)
+            // userInfo.category.forEach(element => {
+            //     selectedValue.push({ value: element, label: element });
+            // });
+            // setSelectedVal(userInfo.category)
         } else {
             setRedirect(true);
         }
@@ -90,12 +105,14 @@ export default function UserTop() {
                 progress: undefined,
             });
         } else {
+            // console.log(categorySelect)
             const update = {
                 firstName: data.firstName,
                 lastName: data.lastName,
                 username: data.username,
                 email: data.email,
-                AboutMe: data.AboutMe
+                AboutMe: data.AboutMe,
+                category: categorySelect
             }
             // console.log(update);
             const token = sessionStorage.getItem('Token');
@@ -173,9 +190,34 @@ export default function UserTop() {
             })
             .catch(err => console.log(err));
     }
+
+
+    const animatedComponents = makeAnimated();
+
+    // const animatedComponents = makeAnimated();
+    // const onSelect = (selectedList, selectedItem) => {
+    //     console.log(selectedList)
+    //     setCategorySelect(selectedList);
+    // }
+
+    // const onRemove = (selectedList, removedItem) => {
+    //     console.log(selectedList)
+    //     setCategorySelect(selectedList);
+    // }
+    const ChangingVal = (value, val) => {
+        console.log(value)
+        let arr = []
+        value.forEach(element => {
+            arr.push(element.value)
+        });
+        console.log(arr)
+        setCategorySelect(arr);
+        // console.log(val)
+    }
     return (
         <>
             <div className="">
+
                 <div class="container emp-profile">
                     {/* <form> */}
                     <div class="row">
@@ -201,16 +243,14 @@ export default function UserTop() {
                                 <h5>
                                     {data.firstName + " " + data.lastName}
                                 </h5>
-                                <h6>
-                                    Web Developer and Designer
-                                </h6>
+
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {/* <li class="nav-item">
                                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Category</a>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                         </div>
@@ -264,48 +304,27 @@ export default function UserTop() {
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Profession</label>
+                                            <label>Category Lover :</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>Web Developer and Designer</p>
+                                            {/* <p>Web Developer and Designer</p> */}
+                                            {
+                                                data && data.category && data.category.length !== 0 && (
+                                                    data.category.map((val, index) => {
+                                                        return (
+                                                            <span style={{ color: "rgb(0,98,204)" }}>{val + ", "}</span>
+
+                                                        )
+                                                    })
+                                                )
+                                            }
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Experience</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Expert</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Hourly Rate</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>10$/hr</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Total Projects</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>230</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>English Level</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Expert</p>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
+                                {/* <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+
+                                </div> */}
                             </div>
                         </div>
 
@@ -371,12 +390,41 @@ export default function UserTop() {
                                                 autocomplete="off" />
                                             <label for="email">Email:</label>
                                         </div>
+                                        <div className="">
+                                            {/* <Multiselect
+                                                isObject={false}
+                                                options={option}
+                                                selectedValues={selectedValue}
+                                                onSelect={onSelect}
+                                                onRemove={(selectedList, selectedValue) => { onRemove(selectedList, selectedValue) }}
+                                                selectionLimit={6}
+                                                displayValue="name"
+                                                placeholder="Select Type you like"
+                                            /> */}
+
+                                            
+                                            
+                                            
+                                                <Select
+                                                closeMenuOnSelect={false}
+                                                components={animatedComponents}
+                                                defaultValue={selectedVal}
+                                                isMulti
+                                                options={option}
+                                                onChange={ChangingVal}
+                                            // isObject={false}
+                                            />
+                                           
+                                            <label for="Category">Category:</label>
+                                            
+                                        </div>
                                         <div class="floating-label">
-                                            <input
+                                            <textarea
                                                 type="text"
                                                 placeholder="About Me"
                                                 name="AboutMe"
                                                 className="input"
+                                                rows={6}
                                                 value={data.AboutMe}
                                                 onChange={eventInput}
                                                 autocomplete="off" />
@@ -392,7 +440,9 @@ export default function UserTop() {
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             }
             <ToastContainer
                 position="top-center"

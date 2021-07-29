@@ -35,6 +35,10 @@ const UserSchema = new mongoose.Schema({
          type : String,
          default : "Please tell people about yourself"
      },
+     category : {
+        type : Array,
+        required: true
+     },
      gender:{type:String},
      isAdmin:{type:Boolean},
      isCustomer:{type:Boolean},

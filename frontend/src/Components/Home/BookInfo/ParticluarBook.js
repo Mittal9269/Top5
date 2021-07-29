@@ -8,6 +8,7 @@ import "./card.css";
 import { Roller } from 'react-spinners-css';
 // import StarRatings from './react-star-ratings';
 import ReactStars from "react-rating-stars-component";
+import VideoPart from "./VideoPart";
 // import React, { Component } from "react"
 // import Disqus from "disqus-react"
 // import Axios from "axios";
@@ -90,7 +91,8 @@ export default function ParticluarBook() {
                 let imagefind = "https://source.unsplash.com/user/erondu/400x300";
                 if (fetchedata.volumeInfo.imageLinks !== undefined) {
                     imagefind = fetchedata.volumeInfo.imageLinks['thumbnail'];
-                    imagefind = imagefind.replace("zoom=1" , "zoom=0")
+                    
+                    // imagefind = imagefind.replace("zoom=1" , "zoom=0")
                 }
                 // fetch('https://api.nytimes.com/svc/books/v3/lists/current/personal-finance.json?api-key=GjmApHcKMGDHHB4IAGymihCBZx2s1cIJ', {    method: 'get',  })  .then(response => { return response.json(); })  .then(json => { console.log(json); });
                 // console.log(imagefind)
@@ -366,6 +368,7 @@ export default function ParticluarBook() {
                         </div>
                     </div>
                 </div>
+            <VideoPart videoTitle={data.title} />
             </section>
             }
             {loding && <div className="align-items-center justify-content-center ml-lg-5">

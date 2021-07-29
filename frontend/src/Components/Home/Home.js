@@ -3,7 +3,7 @@ import { DiscussionEmbed } from 'disqus-react';
 import { NavLink } from "react-router-dom";
 import "./home.css";
 import Img from "../Images/homeimage.png"
-
+import HomeTop5 from "./HomeTop5";
 
 export default function Home() {
     return (
@@ -43,6 +43,7 @@ export default function Home() {
         </div>
       </section>
       </div>
+      <HomeTop5 />
         </>
 
     )

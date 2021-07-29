@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-// const router = require('express').Router();
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 let path = require('path');
@@ -24,6 +23,7 @@ exports.createNewUser = (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        category : req.body.category,
         isAdmin: false,
         isCustomer: true,
         isRestricted: false
@@ -54,17 +54,14 @@ exports.createNewUser = (req, res) => {
 //@param {req} request Object
 //@param {res} response Object
 exports.login = (req, res) => {
-    // console.log(req.body);
-    // if(req.body.password !== req.body.verifyPassword){
-    //     return res.status(400).json({message:"Password Doesn't match"})
-    // }
+    
     user.findOne({ username: req.body.username }).exec((err, foundUser) => {
         if (err) return res.json(err);
         if (!foundUser) return res.status(400).json({ message: "Username not Found. Please Register or Try Again" });
         //Generate Token
 
         // Check password
-        console.log(foundUser)
+        // console.log(foundUser)
         bcrypt.compare(req.body.password, foundUser.password).then(
             isMatch => {
                 if (isMatch) {
@@ -122,7 +119,8 @@ exports.userUpdate = (req, res) => {
             lastName: req.body.lastName,
             email: req.body.email,
             history: req.body.history,
-            AboutMe : req.body.AboutMe
+            AboutMe : req.body.AboutMe,
+            category : req.body.category
         }
 
                 user.findByIdAndUpdate(req.user.id, updatedUser, {

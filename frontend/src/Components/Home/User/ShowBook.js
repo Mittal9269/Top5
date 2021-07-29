@@ -118,12 +118,16 @@ export default function ShowBook(props) {
                         </p>
 
                         <div className="row div_button">
-                            <NavLink to={href} className="btn btn-outline-info navlink">
+                            <NavLink to={href} className="mr-3 btn btn-outline-info navlink">
                                 Info
                             </NavLink>
 
+
+                            <button onClick={() => removeBook()} className="btn btn-outline-info navlink ml-4">
+                                Add
+                            </button>
                         </div>
-                        <hr className="ml-0center" />
+                        <hr className="ml-0 center" />
                         <div className="row div__button my-2">
                             <button data-toggle="modal" data-target="#exampleModalCenter" onClick={() => removeBook()} className="mr-3 btn-light navlink pr-1">
                                 Update
