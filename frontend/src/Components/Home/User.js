@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-import "./User.css";
+// import "./User.css";
+// import "./UserFile.css";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReactStars from "react-rating-stars-component";
@@ -74,7 +76,7 @@ export default function User() {
         console.log(data)
         fetch("http://localhost:8000/comment/comment/" + id, {
             method: 'GET',
-            headers: {
+            _headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             }
@@ -89,13 +91,13 @@ export default function User() {
                     comment_object[element] = [];
                 });
                 fecthnow.forEach(element => {
-                    if(userInfo.category.includes(element.Category)){
+                    if (userInfo.category.includes(element.Category)) {
                         arr.push(element.BookId);
-                    // console.log(element.Category);
-                    let temp = [...comment_object[element.Category], element]
-                    comment_object[element.Category] = temp;
+                        // console.log(element.Category);
+                        let temp = [...comment_object[element.Category], element]
+                        comment_object[element.Category] = temp;
                     }
-                    
+
                     // setHandleSplit((repval) =>{
                     //     return {
                     //         ...repval,
@@ -103,7 +105,7 @@ export default function User() {
                     //     }
 
                     // })
-                    
+
                 });
                 // console.log(comment_object);
                 setHandleSplit(comment_object);
@@ -113,7 +115,7 @@ export default function User() {
 
             }).catch(err => console.log(err))
     }, [])
-    
+
 
     const popUpRemvoe = (bol, identity) => {
 
@@ -150,12 +152,12 @@ export default function User() {
                 Rating: rate,
                 BookId: bookId,
                 UserId: data._id,
-                category : data.category
+                category: data.category
             }
 
             fetch('http://localhost:8000/comment/comment/' + ID, {
                 method: 'PUT',
-                headers: {
+                _headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
@@ -200,36 +202,41 @@ export default function User() {
             {console.log(Category)}
             {Category !== undefined && Category.length !== 0 && (Category.map((value, index) => {
                 return (
-                <div>
-                    {(handleSplit[value] !== undefined &&  handleSplit[value].length!== 0) ? <h3 className="text-center">Your Top books in {value}</h3> : null}
-                    <div className="container-fluid mb-5">
-                        <div className="row">
-                            <div className="clo-10 mx-auto">
-                                <div className="row">
-                                    <div className="col-10 mx-auto">
-                                        <div className="row gy-4">
-                                            
-                                            {console.log(handleSplit[value])}
-                                            {handleSplit[value] !== undefined && handleSplit[value].length !== 0 && (handleSplit[value].map((val, ind) => {
-                                                {console.log(val)}
-                                                return (
-                                                    <ShowBook
-                                                        key={ind}
-                                                        indenity={ind}
-                                                        commentAll={val}
-                                                        HandleRemove={popUpRemvoe}
-                                                    />  
-                                                )
-                                                
-                                            }))}
+                    <div>
+                        {(handleSplit[value] !== undefined && handleSplit[value].length !== 0) ? <h3 className="_text-center">Your Top books in {value}</h3> : null}
+                        <div className="_container-fluid _mb-5">
+                            <div className="_row">
+                                <div className="clo-10 mx-auto">
+                                    <div className="_row">
+                                        <div className="col-10 mx-auto">
+                                            <div className="_row gy-4">
+
+                                                {console.log(handleSplit[value])}
+                                                {handleSplit[value] !== undefined && handleSplit[value].length !== 0 && (handleSplit[value].map((val, ind) => {
+                                                    { console.log(val) }
+                                                    return (
+                                                        <ShowBook
+                                                            key={ind}
+                                                            indenity={ind}
+                                                            commentAll={val}
+                                                            HandleRemove={popUpRemvoe}
+                                                        />
+                                                    )
+
+                                                }))}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>)
+                    </div>)
             }))}
+
+
+            
+
+
 
 
             {
@@ -242,7 +249,7 @@ export default function User() {
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-_header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">FeedBack</h5>
                                         {console.log("something found")}
                                         <button onClick={() => { setIsOpen(false) }} type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -269,14 +276,14 @@ export default function User() {
                                                 name="comment"
                                                 value={Review_particluar}
                                                 onChange={InputData}
-                                                rows={7}
+                                                _rows={7}
                                                 style={{ width: "100%", height: "100%" }}
                                             />
                                         </div>
 
                                         <div class="modal-footer">
-                                            <button onClick={() => { setIsOpen(false) }} type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button onClick={() => SubmitDetail()} type="submit" class="btn btn-primary">Submit</button>
+                                            <button onClick={() => { setIsOpen(false) }} type="button" class="_btn _btn-secondary" data-dismiss="modal">Close</button>
+                                            <button onClick={() => SubmitDetail()} type="submit" class="_btn _btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>

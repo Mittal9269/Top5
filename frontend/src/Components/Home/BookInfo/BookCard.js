@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "./card.css"
+// import "./card.css"
+import "./newcard.css";
 
 export default function BookCard(props) {
-  
-   
+
+
   let href = "/particular/";
   // let title = "" , subtitle = "";
 
   if (props.productInfo.id !== undefined) {
-    href +=  props.productInfo.id;
+    href += props.productInfo.id;
   }
   const [userdata, Setuserdata] = useState([]);
 
@@ -72,9 +73,9 @@ export default function BookCard(props) {
 
   return (
     <>
-    {/* <Navbar /> */}
+
       <div className="div_change col-sm-4 col-12 mx-auto my-2" >
-        <div className="card-img"  >
+        {/* <div className="card-img"  >
           <div class="image card__image-container">
             <img  className="mr-5 card__image" src={
                 props.productInfo.volumeInfo.imageLinks === undefined ? "https://source.unsplash.com/user/erondu/400x300" : props.productInfo.volumeInfo.imageLinks.thumbnail
@@ -85,7 +86,7 @@ export default function BookCard(props) {
     
           <div class="card__content">
             <h3 class="card__title">{props.productInfo.volumeInfo.title.substring(0, 12) + "..."}</h3>
-            {/* <h5 class="card__title">{props.productInfo.volumeInfo.subtitle }</h5> */}
+            
             <p className="card-text">
                 {props.productInfo.volumeInfo.authors}
             </p>
@@ -94,13 +95,23 @@ export default function BookCard(props) {
             <NavLink to={href} className="btn btn-outline-info navlink">
               Info
             </NavLink>
-            <form onSubmit={SendId}>
-            
-            </form>
             </div>
           </div>
-        </div>
+        </div> */}
+        <NavLink to={href}  class="card 1" >
+          <div class="card_image"> <img  src={
+                props.productInfo.volumeInfo.imageLinks === undefined ? "https://source.unsplash.com/user/erondu/400x300" : props.productInfo.volumeInfo.imageLinks.thumbnail
+            } alt="" /> </div>
+          <div class="card_title title-white">
+          {/* <h3 class="card__title">{props.productInfo.volumeInfo.title.substring(0, 12) + "..."}</h3>
+            
+            <p className="card-text" >
+                {props.productInfo.volumeInfo.authors}
+            </p> */}
+          </div>
+        </NavLink>
       </div>
+
 
 
       <ToastContainer

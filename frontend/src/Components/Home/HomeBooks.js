@@ -3,9 +3,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from "react";
 
+
 export default function HomeBooks(props){
 
     // const [rate, setRate] = useState(1);
+    const [redirect, setRedirect] = useState(false);
     const [data, setData] = useState({
         image: "",
         description: "",
@@ -19,6 +21,10 @@ export default function HomeBooks(props){
     
     let href = "/particular/" + props.commentAll.BookId;
     useEffect(() => {
+        let token = sessionStorage.getItem("Token");
+        if(token){
+            setRedirect(true);
+        }
         let identity = props.commentAll.BookId;
         fetch('https://www.googleapis.com/books/v1/volumes/' + identity, {
             method: 'GET',
@@ -56,6 +62,22 @@ export default function HomeBooks(props){
             .catch(err => console.log(err));
     }, [])
 
+    const UserHandle = () =>{
+        if(redirect){
+            window.location = href;
+        }
+        else{
+            toast.warning('Please Login First', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
 
     return(
         <>
@@ -77,13 +99,25 @@ export default function HomeBooks(props){
                         </p>
 
                         <div className="row div_button">
-                            <NavLink to={href} className="mr-3 btn btn-outline-info navlink">
+                            {/* <NavLink to={href} className="mr-3 btn btn-outline-info navlink">
                                 Info
-                            </NavLink>
+                            </NavLink> */}
+                            <button className="mr-3 btn btn-outline-info navlink" onClick={UserHandle}>Info</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </>
     )
 }

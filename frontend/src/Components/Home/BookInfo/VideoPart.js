@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export default function VideoPart(props) {
     const [data, setData] = useState([]);
     useEffect(() => {
-        let val = props.videoTitle;
+        let val = props.videoTitle + "book review";
         fetch(
             "https://www.googleapis.com/youtube/v3/search?q=" +
             val +
@@ -41,7 +41,7 @@ export default function VideoPart(props) {
 
                                 return (
                                     <li key={id} className="card">
-                                        <a href={`https://www.youtube.com/watch?v=${id.videoId}`}>
+                                        <a target="_blank" href={`https://www.youtube.com/watch?v=${id.videoId}`}>
                                             <p>
                                                 <img
                                                     width={medium.width}

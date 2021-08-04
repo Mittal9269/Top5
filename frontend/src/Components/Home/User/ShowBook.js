@@ -3,10 +3,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
-import { useSelector  , useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { counterAction } from "../../../store";
+import "../BookInfo/newcard.css"
+
 export default function ShowBook(props) {
-    const top5 =  useSelector(state => state.books)
+    const top5 = useSelector(state => state.books)
     const dispatch = useDispatch();
     const [data, setData] = useState({
         image: "",
@@ -19,7 +21,7 @@ export default function ShowBook(props) {
         subtitle: ""
     })
     const [rate, setRate] = useState(1);
-    
+
     let href = "/particular/" + props.commentAll.BookId;
     useEffect(() => {
         let identity = props.commentAll.BookId;
@@ -54,7 +56,7 @@ export default function ShowBook(props) {
                     pages: fetchedata.volumeInfo.pageCount,
                     subtitle: fetchedata.volumeInfo.subtitle
                 })
-               
+
             })
             .catch(err => console.log(err));
     }, [])
@@ -64,9 +66,9 @@ export default function ShowBook(props) {
     };
 
     const removeBook = () => {
-        
-        props.HandleRemove(true , props.indenity)
-       
+
+        props.HandleRemove(true, props.indenity)
+
         dispatch(counterAction.reviewcheck(props.commentAll.Review))
         dispatch(counterAction.ratingcheck(props.commentAll.Rating))
         dispatch(counterAction.bookIdcheck(props.commentAll.BookId))
@@ -74,26 +76,26 @@ export default function ShowBook(props) {
 
     }
 
-    
+
 
     const togglePopup = () => {
         // setIsOpen(!isOpen);
         props.HandleRemove()
     }
 
-    const DeleteEvent = () =>{
+    const DeleteEvent = () => {
         fetch('http://localhost:8000/comment/comment/' + props.commentAll._id, {
             method: 'DELETE',
         })
-            .then(res => res.text()) 
-            .then(text =>{
-                let filtered = top5.filter(function(value, index){ 
+            .then(res => res.text())
+            .then(text => {
+                let filtered = top5.filter(function (value, index) {
                     return value !== props.id;
                 });
-               
+
                 dispatch(counterAction.bookscheck(filtered))
                 window.location.reload();
-            } )
+            })
             .catch(err => console.log(err))
     }
 
@@ -102,37 +104,20 @@ export default function ShowBook(props) {
         <>
             <div className="col-md-2 col-10 mx-auto my-2" >
                 <div className="card-img"  >
-                    <div class="image card__image-container">
-                        <img className="mr-5 card__image" src={
-                            data.image
-                        } alt="" />
-
-                    </div>
-
+                    <NavLink to={href} class="card 1" >
+                        <div class="card_image"> <img src={
+                            data.image === undefined ? "https://source.unsplash.com/user/erondu/400x300" : data.image
+                        } alt="" /> </div>
+                        <div class="card_title title-white">
+                        </div>
+                    </NavLink>
 
                     <div class="card__content">
-                        <h3 class="card__title">{data.title.substring(0, 12) + "..."}</h3>
-                    
-                        <p className="card-text">
-                            {data.auther}
-                        </p>
-
-                        <div className="row div_button">
-                            <NavLink to={href} className="mr-3 btn btn-outline-info navlink">
-                                Info
-                            </NavLink>
-
-
-                            <button onClick={() => removeBook()} className="btn btn-outline-info navlink ml-4">
-                                Add
-                            </button>
-                        </div>
-                        <hr className="ml-0 center" />
                         <div className="row div__button my-2">
                             <button data-toggle="modal" data-target="#exampleModalCenter" onClick={() => removeBook()} className="mr-3 btn-light navlink pr-1">
                                 Update
                             </button>
-                            <button onClick={()=> DeleteEvent()} className="ml-4 btn btn-danger navlink">
+                            <button onClick={() => DeleteEvent()} className="ml-4 btn btn-danger navlink">
                                 Remove
                             </button>
                         </div>
@@ -142,10 +127,10 @@ export default function ShowBook(props) {
                                 {props.commentAll.Review}
                             </p>
                         </div>
-                        
+
                         <div>
                             <ReactStars
-                                
+
                                 value={props.commentAll.Rating}
                                 size={24}
                                 isHalf={true}
@@ -159,7 +144,7 @@ export default function ShowBook(props) {
                     </div>
                 </div>
             </div>
-            
+
         </>
     )
 }

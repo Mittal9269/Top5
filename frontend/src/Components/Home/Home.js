@@ -4,8 +4,20 @@ import { NavLink } from "react-router-dom";
 import "./home.css";
 import Img from "../Images/homeimage.png"
 import HomeTop5 from "./HomeTop5";
+import {useEffect , useState} from "react";
 
 export default function Home() {
+
+    const [user , setUser] = useState(false);
+    const [href , setHref] = useState("/login");
+    
+    useEffect(() => {
+      let token  = sessionStorage.getItem("Token");
+      if(token){
+        setHref("/input");
+        setUser(true);
+      }
+    }, [])
     return (
         <>
     
@@ -25,8 +37,8 @@ export default function Home() {
                     We are team of Best developer to help you
                   </h2>
                   <div className="mt-3">
-                    <NavLink to="/login" className="btn-get-started">
-                      Signin
+                    <NavLink to={href} className="btn-get-started">
+                      {user ? "Books" : "SignIn"}
                     </NavLink>
                   </div>
                 </div>

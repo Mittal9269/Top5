@@ -7,12 +7,13 @@ import makeAnimated from 'react-select/animated';
 import Image from "../../Images/defaultUser.png"
 import Multiselect from 'multiselect-react-dropdown';
 import option from "../../Login/Options";
+import "../UserFile.css"
 
 export default function UserTop() {
     const [redirect, setRedirect] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [categorySelect, setCategorySelect] = useState([]);
-    const [selectedVal , setSelectedVal] = useState([]);
+    const [selectedVal, setSelectedVal] = useState([]);
     // const [photselect , setPhotoselect] = useState("");
     const [newUser, setNewUser] = useState(
         {
@@ -216,15 +217,15 @@ export default function UserTop() {
     }
     return (
         <>
-            <div className="">
+            {/* <div className="">
 
                 <div class="container emp-profile">
-                    {/* <form> */}
+                    
                     <div class="row">
                         <div class="col-md-4">
                             <div class="profile-img">
                                 <img src={data.image && data.image.length !== 0 ? 'http://localhost:8000/images/' + data.image : Image} alt="" />
-                                {/* <form onSubmit={handleSubmit} encType='multipart/form-data'> */}
+                                
                                 <div class="file btn btn-lg btn-primary">
                                     Change Photo
                                     <input
@@ -234,8 +235,7 @@ export default function UserTop() {
                                         name="file" />
                                 </div>
 
-                                {/* <button className="button" type="submit">Submit</button> */}
-                                {/* </form> */}
+                                
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -248,16 +248,13 @@ export default function UserTop() {
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                     </li>
-                                    {/* <li class="nav-item">
-                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Category</a>
-                                    </li> */}
+                                    
                                 </ul>
                             </div>
                         </div>
 
 
                         <div class="col-md-2">
-                            {/* <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" /> */}
                             <button data-toggle="modal" className="btn btn-light btn-md mr-1 mb-2" data-target="#exampleModalCenter" onClick={() => { FindAns() }}>
                                 Edit Profile
                             </button>
@@ -307,7 +304,7 @@ export default function UserTop() {
                                             <label>Category Lover :</label>
                                         </div>
                                         <div class="col-md-6">
-                                            {/* <p>Web Developer and Designer</p> */}
+                                            
                                             {
                                                 data && data.category && data.category.length !== 0 && (
                                                     data.category.map((val, index) => {
@@ -321,15 +318,310 @@ export default function UserTop() {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
-
-                                </div> */}
+                                
                             </div>
                         </div>
 
                     </div>
-                    {/* </form> */}
+                    
+                </div>
+            </div> */}
+
+
+
+            <div class="_main-content">
+                <nav
+                    class="_navbar _navbar-top _navbar-expand-md _navbar-dark"
+                    id="_navbar-main"
+                >
+                    <div class="_container-fluid">
+
+                        <ul class="_navbar-nav _align-items-center _d-none _d-m_d-flex">
+                            <li class="_nav-item _dropdown">
+                                <div class="_dropdown-menu _dropdown-menu-ar_row _dropdown-menu-right">
+                                    <div class=" _dropdown-_header _noti-title">
+                                        <h6 class="_text-overflow _m-0">Welcome!</h6>
+                                    </div>
+                                    <a href="../examples/profile.html" class="_dropdown-item">
+                                        <i class="ni ni-single-02"></i>
+                                        <span>My profile</span>
+                                    </a>
+                                    <a href="../examples/profile.html" class="_dropdown-item">
+                                        <i class="ni ni-settings-gear-65"></i>
+                                        <span>Settings</span>
+                                    </a>
+                                    <a href="../examples/profile.html" class="_dropdown-item">
+                                        <i class="ni ni-calendar-grid-58"></i>
+                                        <span>Activity</span>
+                                    </a>
+                                    <a href="../examples/profile.html" class="_dropdown-item">
+                                        <i class="ni ni-support-16"></i>
+                                        <span>Support</span>
+                                    </a>
+                                    <div class="_dropdown-divider"></div>
+                                    <a href="#!" class="_dropdown-item">
+                                        <i class="ni ni-user-run"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div
+                    class="_header _pb-8 _pt-5 _pt-lg-8 _d-flex _align-items-center"
+                    style={{
+                        minHeight: "600px",
+                        backgroundImage:
+                            "url(https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;"
+                    }}
+                >
+                    <span class="_mask _bg-gradient-default _opacity-8"></span>
+
+                    <div class="_container-fluid _d-flex _align-items-center">
+                        <div class="_row">
+                            <div class="_col-lg-7 _col-md-10">
+                                <h1 class="_display-2 _text-white">Hello {data.firstName + " " + data.lastName}</h1>
+                                <p class="_text-white _mt-0 _mb-5">
+                                    This is your profile page. You can see the progress you've made
+                                    with your work and manage your projects or assigned tasks
+                                </p>
+                                {/* <a href="#!" class="_btn _btn-info">
+                                    Edit profile
+                                </a> */}
+                                <button data-toggle="modal" className="_btn _btn-info" data-target="#exampleModalCenter" onClick={() => { FindAns() }}>
+                                    Edit Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="_container-fluid mt--7">
+                    <div class="_row">
+                        <div class="_col-xl-4 _order-xl-2 _mb-5 _mb-xl-0">
+                            <div class="_card _card-profile _shadow">
+                                <div class="_row justify-content-center">
+                                    <div class="col-lg-3 order-lg-2">
+                                        {/* <div class="_card-profile-image">
+                                            
+                                            <img src={data.image && data.image.length !== 0 ? 'http://localhost:8000/images/' + data.image : Image} alt="" />
+                                            
+                                            <div class="file btn btn-lg btn-primary">
+                                                Change Photo
+                                                <input
+                                                    type="file"
+                                                    accept=".png, .jpg, .jpeg"
+                                                    onChange={handlePhoto}
+                                                    name="file" />
+                                            </div>
+                                        </div> */}
+                                        <div class="profile-img">
+                                            <img src={data.image && data.image.length !== 0 ? 'http://localhost:8000/images/' + data.image : Image} alt="" />
+
+                                            {/* <div class="file btn btn-lg btn-primary">
+                                                Change Photo
+                                                <input
+                                                    type="file"
+                                                    accept=".png, .jpg, .jpeg"
+                                                    onChange={handlePhoto}
+                                                    name="file" />
+                                            </div> */}
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="_card-header _text-center _border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                                    <div class="_d-flex justify-content-between">
+                                        <a href="#" class="_btn _btn-sm _btn-info mr-4">
+                                            Connect
+                                        </a>
+                                        <a href="#" class="_btn _btn-sm _btn-default float-right">
+                                            Message
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="_card-body pt-0 pt-md-4">
+                                    <div class="_row">
+                                        <div class="col">
+                                            <div class="_card-profile-stats _d-flex justify-content-center mt-md-5">
+                                                <div>
+                                                    <span class="heading">22</span>
+                                                    <span class="description">Friends</span>
+                                                </div>
+                                                <div>
+                                                    <span class="heading">10</span>
+                                                    <span class="description">Photos</span>
+                                                </div>
+                                                <div>
+                                                    <span class="heading">89</span>
+                                                    <span class="description">Comments</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="_text-center">
+                                        <h3>
+                                            Jessica Jones<span class="font-weight-light">, 27</span>
+                                        </h3>
+                                        <div class="h5 font-weight-300">
+                                            <i class="ni location_pin mr-2"></i>Bucharest, Romania
+                                        </div>
+                                        <div class="h5 mt-4">
+                                            <i class="ni business_briefcase-24 mr-2"></i>Solution
+                                            Manager - Creative Tim Officer
+                                        </div>
+                                        <div>
+                                            <i class="ni education_hat mr-2"></i>University of Computer
+                                            Science
+                                        </div>
+                                        <hr class="my-4" />
+                                        <p>
+                                            Ryan — the name taken by Melbourne-raised, Brooklyn-based
+                                            Nick Murphy — writes, performs and records all of his own
+                                            music.
+                                        </p>
+                                        <a href="#">Show more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 order-xl-1">
+                            <div class="_card bg-secondary _shadow">
+                                <div class="_card-_header _bg-white _border-0">
+                                    <div class="_row _align-items-center">
+                                        <div class="col-8">
+                                            <h3 class="_mb-0">My account</h3>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="_card-body">
+                                    <form>
+                                        <h6 class="_heading-small _text-muted mb-4">
+                                            User information
+                                        </h6>
+                                        <div class="pl-lg-4">
+                                            <div class="_row">
+                                                <div class="col-lg-6">
+                                                    <div class="_form-group focused">
+                                                        <label
+                                                            class="_form-control-label"
+                                                            for="input-username"
+                                                        >
+                                                            Username
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="input-username"
+                                                            class="_form-control _form-control-alternative"
+                                                            placeholder="Username"
+                                                            value={data.username}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="_form-group">
+                                                        <label class="_form-control-label" for="input-email">
+                                                            Email address
+                                                        </label>
+                                                        <input
+                                                            type="email"
+                                                            id="input-email"
+                                                            class="_form-control _form-control-alternative"
+                                                            placeholder="jesse@example.com"
+                                                            value={data.email}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="_row">
+                                                <div class="col-lg-6">
+                                                    <div class="_form-group focused">
+                                                        <label
+                                                            class="_form-control-label"
+                                                            for="input-first-name"
+                                                        >
+                                                            First name
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="input-first-name"
+                                                            class="_form-control _form-control-alternative"
+                                                            placeholder="First name"
+                                                            value={data.firstName}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="_form-group focused">
+                                                        <label
+                                                            class="_form-control-label"
+                                                            for="input-last-name"
+                                                        >
+                                                            Last name
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="input-last-name"
+                                                            class="_form-control _form-control-alternative"
+                                                            placeholder="Last name"
+                                                            value={data.lastName}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="my-4" />
+
+                                        <h6 class="_heading-small _text-muted mb-4">
+                                            More Info
+                                        </h6>
+                                        <div class="pl-lg-4">
+                                            <div class="_row">
+                                                <div class="col-md-12">
+                                                    <div class="_form-group focused">
+                                                        <label class="_form-control-label" for="input-address">
+                                                            Category Lover
+                                                        </label>
+                                                        <input
+                                                            id="input-address"
+                                                            class="_form-control _form-control-alternative"
+                                                            placeholder="Home Address"
+                                                            value={
+                                                                data.category
+                                                            }
+                                                            type="text"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* </div> */}
+                                        </div>
+                                        <hr class="my-4" />
+
+                                        <h6 class="_heading-small _text-muted mb-4">About me</h6>
+                                        <div class="pl-lg-4">
+                                            <div class="_form-group focused">
+                                                <label>About Me</label>
+                                                <textarea
+                                                    _rows="4"
+                                                    class="_form-control _form-control-alternative"
+                                                    placeholder="A few words about you ..."
+                                                    value={data.AboutMe}
+                                                >
+
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -402,10 +694,10 @@ export default function UserTop() {
                                                 placeholder="Select Type you like"
                                             /> */}
 
-                                            
-                                            
-                                            
-                                                <Select
+
+
+
+                                            <Select
                                                 closeMenuOnSelect={false}
                                                 components={animatedComponents}
                                                 defaultValue={selectedVal}
@@ -414,9 +706,9 @@ export default function UserTop() {
                                                 onChange={ChangingVal}
                                             // isObject={false}
                                             />
-                                           
+
                                             <label for="Category">Category:</label>
-                                            
+
                                         </div>
                                         <div class="floating-label">
                                             <textarea

@@ -39,39 +39,43 @@ export default function HomeTop5() {
                 
                 temp_arr.forEach(element => {
                     let books = comment_object[element];
-                    console.log(books)
-                    let result = {};
-                    let p = [];
-                    for (let i = 0; i < books.length; ++i) {
-                        if(!p.includes(books[i].BookId)){
-                            p.push(books[i].BookId)
-                            result[books[i]] = 0;
+                    let res = {};
+                    books.forEach(element => {
+                        if(!res[element.BookId]){
+                            res[element.BookId] = 0;
                         }
-                        // if (!result[books[i].BookId])
-                        ++result[books[i]];
+                        ++res[element.BookId];
+                    });
+                    
+                    let p = [];
+                    let t = [];
+                    for (let i = 0; i < books.length; ++i) {
+                        if(!t.includes(books[i].BookId)){
+                            p.push([books[i], res[books[i].BookId]])
+                            t.push(books[i].BookId);
+                        }
+                        
                     }
-                    console.log(result)
-                    // let sortable = Object.fromEntries(
-                    //     Object.entries(result).sort(([,a],[,b]) => a-b)
-                    //     );
-                    // let bookKey = Object.keys(sortable);
-                    // bookKey.reverse()
-                    // let new_array;
-                    // if(bookKey.length > 5){
-                    //     new_array = bookKey.slice(0, 5)
-                    // }
-                    // else{
-                    //     new_array = bookKey;
-                    // }
-                    // console.log(new_array)
-                    // comment_object[element] = new_array;
+                    
+                    p.sort(function(a,b){return b[1] - a[1]})
+                    
+                    let new_array = [];
+                    if(p.length > 5){
+                        for(let i=0; i<5; i++){
+                            new_array.push(p[i][0])
+                        }
+                    }
+                    else{
+                        
+                        for(let i=0; i<p.length; i++){
+                            new_array.push(p[i][0])
+                        }
+                    }
+                    comment_object[element] = new_array;
                 });
 
                 setHandleSplit(comment_object);
-                // console.log(handleSplit)
-
-                // dispatch(counterAction.bookscheck(arr));
-
+                
             }).catch(err => console.log(err))
     }, [])
 
