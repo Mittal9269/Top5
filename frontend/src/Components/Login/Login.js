@@ -137,6 +137,9 @@ const FormPage = () => {
           >
             SignIn
         </NavLink>
+        <button className="button" onClick={() => window.location = "/forget_password"}>
+          Forget Password
+        </button>
         </form>
       </div>
       <ToastContainer

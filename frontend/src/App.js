@@ -9,6 +9,7 @@ import Error from "./Components/Home/Error";
 import User from "./Components/Home/User";
 import Input from "./Components/Home/Input";
 import ParticluarBook from "./Components/Home/BookInfo/ParticluarBook";
+import ForgetPassword from "./Components/Login/ForgetPassword";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/user" component={User} />
         <Route exact path="/input" component={Input} />
         <Route exact path="/particular/:id" component={ParticluarBook} />
+        <Route exact path="/forget_password" component={ForgetPassword} />
         <Route component={Error} />
         <Redirect to="/" component={Home} />
       </Switch>

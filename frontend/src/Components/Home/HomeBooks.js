@@ -81,32 +81,17 @@ export default function HomeBooks(props){
 
     return(
         <>
-            <div className="col-md-2 col-10 mx-auto my-2" >
-                <div className="card-img"  >
-                    <div class="image card__image-container">
-                        <img className="mr-5 card__image" src={
-                            data.image
-                        } alt="" />
-
-                    </div>
-
-
-                    <div class="card__content">
-                        <h3 class="card__title">{data.title.substring(0, 12) + "..."}</h3>
-                    
-                        <p className="card-text">
-                            {data.auther}
-                        </p>
-
-                        <div className="row div_button">
-                            {/* <NavLink to={href} className="mr-3 btn btn-outline-info navlink">
-                                Info
-                            </NavLink> */}
-                            <button className="mr-3 btn btn-outline-info navlink" onClick={UserHandle}>Info</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div className="div_change col-sm-2 col-10 mx-auto my-2" >
+        
+        <div onClick={UserHandle}  class="card 1" >
+          <div class="card_image"> <img  src={
+                data.image === undefined ? "https://source.unsplash.com/user/erondu/400x300" : data.image
+            } alt="" /> </div>
+          <div class="card_title title-white">
+          
+          </div>
+        </div>
+      </div>
             <ToastContainer
                 position="top-center"
                 autoClose={1000}

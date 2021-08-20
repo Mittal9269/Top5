@@ -29,8 +29,7 @@ export default function VideoPart(props) {
     return (
         <div className="container-fluid mb-5">
             <div className="clo-10 mx-auto">
-                <div className="row">
-                    <div className="div_change col-sm-2 col-12 mx-auto my-2" >
+                
                     <div className="row">
                         {data !== undefined &&
                             data.length !== 0 &&
@@ -57,8 +56,7 @@ export default function VideoPart(props) {
                             })}
                     </div>
                 </div>
-            </div>
-            </div>
+           
         </div>
 
 

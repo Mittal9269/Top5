@@ -1,5 +1,8 @@
-.home_background{
-    /* background-color: rgb(232,236,240) !important; */
+
+
+.new__image{
+    background-size: 100% 100%;
+    background-image: url('../Images/home__image.jpg') ;
 }
 .image__size{
     width: 500px ;

@@ -91,7 +91,7 @@ export default function HomeTop5() {
                             <div className="row">
                                 <div className="clo-10 mx-auto">
                                     <div className="row">
-                                        <div className="col-10 mx-auto">
+                                        
                                             <div className="row gy-4">
 
                                                 {/* {console.log(handleSplit[value])} */}
@@ -109,7 +109,7 @@ export default function HomeTop5() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>)

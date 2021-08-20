@@ -11,6 +11,7 @@ const app = express();
 const userAuth = require("./routes/user.js");
 const Commenttrouter = require('./routes/comment.js');
 const ReplyRouter = require('./routes/reply.js')
+const ForgetRouter = require("./routes/forget.js")
 
 //Datebase connection
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true , useUnifiedTopology: true,useCreateIndex: true , useFindAndModify: false}).then(() =>{
@@ -25,7 +26,8 @@ app.use(express.urlencoded({ extended: false }));
 //EndPoints
 app.use("/api",userAuth);
 app.use("/comment" ,Commenttrouter);
-app.use("/reply" , ReplyRouter)
+app.use("/reply" , ReplyRouter);
+app.use("/forget" , ForgetRouter);
 // app.use("/categery" ,CategaryRouter);
 app.use('/images', express.static(__dirname + '/images/'));
 

@@ -207,8 +207,7 @@ export default function User() {
                         <div className="_container-fluid _mb-5">
                             <div className="_row">
                                 <div className="clo-10 mx-auto">
-                                    <div className="_row">
-                                        <div className="col-10 mx-auto">
+                                    
                                             <div className="_row gy-4">
 
                                                 {console.log(handleSplit[value])}
@@ -227,8 +226,7 @@ export default function User() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                
                         </div>
                     </div>)
             }))}
